@@ -93,7 +93,51 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const TaskFormView = __webpack_require__(!(function webpackMissingModule() { var e = new Error(\"Cannot find module './'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }()))\n\n\ndocument.addEventListener('DOMContentloaded', () => {\nconsole.log(\"working\");\n\nconst todoUrl = \"http://localhost:3000/api/tasks\"\nconst tasks = newTasks(todoUrl);\n});\n\n\n//# sourceURL=webpack:///./client/src/app.js?");
+eval("const TaskFormView = __webpack_require__(/*! ./views/task_form_view.js */ \"./client/src/views/task_form_view.js\");\nconst TaskListView = __webpack_require__(/*! ./views/task_list_view.js */ \"./client/src/views/task_list_view.js\");\nconst TaskView = __webpack_require__(/*! ./views/task_view.js */ \"./client/src/views/task_view.js\");\n\n\ndocument.addEventListener('DOMContentloaded', () => {\n  console.log(\"working\");\n  const taskForm = document.querySelector('#save');\n  const taskFormView = new TaskFormView(taskForm);\n  \n\n\nconst todoUrl = \"http://localhost:3000/api/tasks\"\nconst tasks = newTasks(todoUrl);\n});\n\n\n//# sourceURL=webpack:///./client/src/app.js?");
+
+/***/ }),
+
+/***/ "./client/src/helpers/pub_sub.js":
+/*!***************************************!*\
+  !*** ./client/src/helpers/pub_sub.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const PubSub = {\n  publish: function (channel, payload) {\n    const event = new CustomEvent(channel, {\n      detail: payload\n    });\n    document.dispatchEvent(event);\n  },\n\n  subscribe: function (channel, callback) {\n    document.addEventListener(channel, callback);\n  }\n};\n\nmodule.exports = PubSub;\n\n\n//# sourceURL=webpack:///./client/src/helpers/pub_sub.js?");
+
+/***/ }),
+
+/***/ "./client/src/views/task_form_view.js":
+/*!********************************************!*\
+  !*** ./client/src/views/task_form_view.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const PubSub = __webpack_require__(/*! ../helpers/pub_sub.js */ \"./client/src/helpers/pub_sub.js\");\n\nconst TaskFormView = function(form){\n  this.form = form;\n};\n\nTaskFormView.prototype.bindEvents = function () {\n  this.form.addEventListener('submit', (evt) =>{\n    this.handleSubmit(evt);\n  });\n};\n\nTaskFormView.prototype.handleSubmit = function (evt) {\n  evt.preventDefault();\n  const newTask = this.createTask(evt.target);\n  PubSub.publish('TaskFormView:task-submitted', newTask);\n  evt.target.reset();\n};\n\nTaskFormView.prototype.createTask = function (form) {\n  const newTask = {\n    task: form.task.value\n  }\n  return newTask;\n};\n\nmodule.exports = TaskFormView\n\n\n//# sourceURL=webpack:///./client/src/views/task_form_view.js?");
+
+/***/ }),
+
+/***/ "./client/src/views/task_list_view.js":
+/*!********************************************!*\
+  !*** ./client/src/views/task_list_view.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("\n\n//# sourceURL=webpack:///./client/src/views/task_list_view.js?");
+
+/***/ }),
+
+/***/ "./client/src/views/task_view.js":
+/*!***************************************!*\
+  !*** ./client/src/views/task_view.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("\n\n//# sourceURL=webpack:///./client/src/views/task_view.js?");
 
 /***/ })
 
