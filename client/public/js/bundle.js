@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("\n\n//# sourceURL=webpack:///./client/src/app.js?");
+eval("document.addEventListener('DOMContentloaded', () => {\nconsole.log(\"working\");\n\nconst todoUrl = \"http://localhost:3000/api/tasks\"\nconst tasks = newTasks(todoUrl);\n});\n\n\n//# sourceURL=webpack:///./client/src/app.js?");
 
 /***/ })
 
